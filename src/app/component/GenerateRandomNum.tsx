@@ -28,6 +28,7 @@ const GenerateRandomNum = () => {
     generateNextQuiz();
   };
 
+  // 回答後のメッセージを閉じると次の問題出題
   const generateNextQuiz = async () => {
     const newAnswerNum = Math.floor(Math.random() * 4);
     setAnswerNum(newAnswerNum);
@@ -45,6 +46,7 @@ const GenerateRandomNum = () => {
     setPokemonData(newName);
   };
 
+  // 初期画面ロード時に問題出力
   useEffect(() => {
     const generateChoicesNum = async () => {
       const newAnswerNum = Math.floor(Math.random() * 4);
@@ -52,6 +54,7 @@ const GenerateRandomNum = () => {
 
       const newName: React.SetStateAction<{ name: string; num: number }[]> = [];
 
+      // 選択肢が４つになるまで、重複を避けてランダムな数字出力
       while (newName.length < 4) {
         const randomNumber: number = Math.floor(1011 - Math.random() * 1010);
         const fetchName: string = await fetchPokemonName(randomNumber);
