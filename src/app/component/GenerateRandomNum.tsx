@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 const GenerateRandomNum = () => {
   const [pokemonData, setPokemonData] = useState<{ name: string; num: number }[]>([]);
   const [answerNum, setAnswerNum] = useState<number>(0);
-  const [checkNum, setCheckNum] = useState(null);
+  const [checkNum, setCheckNum] = useState<null | number>(null);
 
   const fetchPokemonName = async (props: number) => {
     try {
@@ -19,13 +19,18 @@ const GenerateRandomNum = () => {
     }
   };
 
-  const checkAnswer = (check: number) => {
-    if (answerNum === check) {
+  const checkAnswer = () => {
+    if (answerNum === checkNum) {
       alert("正解！");
     } else {
       alert("残念！");
     }
     generateNextQuiz();
+    setCheckNum(null);
+  };
+
+  const chooseAnswer = (index: number) => {
+    setCheckNum(index);
   };
 
   // 回答後のメッセージを閉じると次の問題出題
@@ -70,19 +75,27 @@ const GenerateRandomNum = () => {
 
   return (
     <div className="flex flex-col items-center border border-slate-200 mx-4 mb-6 shadow-md">
+      <h3 className="my-4 text-lg">このポケモンの名前はなんでしょう。</h3>
       {pokemonData.length > 0 && (
-        <Image width={200} height={200} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData[answerNum].num}.png`} alt="" />
+        <Image width={300} height={300} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData[answerNum].num}.png`} alt="" />
       )}
 
-      <ul className="my-4">
+      <div className="my-4">
         {pokemonData.map((fetchName, index) => (
-          <li key={index} className="flex my-2 px-2 items-center text-lg cursor-pointer rounded-md hover:bg-sky-100">
-            <input type="radio" name="check" onClick={() => checkAnswer(index)} />
-            <p className="ml-2">{fetchName.name}</p>
-          </li>
+          <div key={index} className="flex my-2 px-2 items-center text-lg rounded-md hover:bg-sky-100">
+            <label className="cursor-pointer">
+              <input type="radio" name="check" className="mr-2" onChange={() => chooseAnswer(index)} checked={index === checkNum} />
+              {fetchName.name}
+            </label>
+          </div>
         ))}
-      </ul>
-      <button className="bg-rose-500 text-white px-2 py-2 rounded-lg mb-4 hover:bg-rose-700 hover:translate-y-px hover:translate-x-px">答えを送信する</button>
+      </div>
+      <button
+        className={`${checkNum ? "bg-rose-500" : "bg-gray-300 pointer-events-none"} text-white px-2 py-2 rounded-lg mb-4 hover:bg-rose-700 hover:translate-y-px hover:translate-x-px`}
+        onClick={checkAnswer}
+      >
+        答えを送信する
+      </button>
     </div>
   );
 };
