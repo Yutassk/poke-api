@@ -1,11 +1,13 @@
-import { useEffect } from "react";
 import GenerateRandomNum from "./component/GenerateRandomNum";
-import { PokemonViewer } from "./component/PokeApi";
+import Footer from "./layout/Footer";
+import Header from "./layout/Header";
 
 export default function Home() {
   return (
     <div>
+      <Header />
       <GenerateRandomNum />
+      <Footer />
     </div>
   );
 }
