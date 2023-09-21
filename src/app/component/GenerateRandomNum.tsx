@@ -1,19 +1,26 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { QuizContext } from "./QuizProvider";
 
 const GenerateRandomNum = () => {
+  const router = useRouter();
+
   const [pokemonData, setPokemonData] = useState<{ name: string; num: number }[]>([]);
   const [answerNum, setAnswerNum] = useState<number>(0);
   const [checkNum, setCheckNum] = useState<null | number>(null);
-  const [score, setScore] = useState<number>(0);
-  const [exam, setExam] = useState<number>(0);
+  // const [score, setScore] = useState<number>(0);
+  // const [exam, setExam] = useState<number>(0);
+
+  const { score, setScore, exam, setExam } = useContext(QuizContext);
 
   const fetchPokemonName = async (props: number) => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${props}/`);
       const data = await response.json();
-      const japaneseName = data.names.find((name) => name.language.name === "ja").name;
+      const japaneseName = data.names.find((name: { language: { name: string } }) => name.language.name === "ja").name;
       return japaneseName;
     } catch (error) {
       console.error("Error fetching Pokemon name:", error);
@@ -29,8 +36,13 @@ const GenerateRandomNum = () => {
     } else {
       alert("残念！");
     }
-    generateNextQuiz();
     setCheckNum(null);
+
+    if (exam < 5) {
+      generateNextQuiz();
+    } else {
+      router.push("../Result");
+    }
   };
 
   const chooseAnswer = (index: number) => {
@@ -74,7 +86,8 @@ const GenerateRandomNum = () => {
         }
       }
       setPokemonData(newName);
-      setExam((prevExam) => (prevExam += 1));
+      setExam(1);
+      setScore(0);
     };
     generateChoicesNum();
   }, []);
@@ -104,6 +117,7 @@ const GenerateRandomNum = () => {
         答えを送信する
       </button>
       <p>{score}</p>
+      <Link href={"../Result"}>結果を見る</Link>
     </div>
   );
 };
