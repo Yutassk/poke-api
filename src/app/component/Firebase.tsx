@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -12,3 +12,16 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+
+// 結果をDBに保存
+export const addResult = async (score: number, exam: number) => {
+  try {
+    const docRef = await addDoc(collection(db, "results"), {
+      score: score,
+      exam: exam,
+    });
+    console.log("Document written with ID:", docRef.id);
+  } catch (e) {
+    console.error("Error adding document:", e);
+  }
+};

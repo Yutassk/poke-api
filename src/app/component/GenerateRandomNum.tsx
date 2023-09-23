@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { QuizContext } from "./QuizProvider";
@@ -39,7 +38,7 @@ const GenerateRandomNum = () => {
     if (exam < 5) {
       generateNextQuiz();
     } else {
-      router.push("../Result");
+      router.push("../");
     }
   };
 
@@ -88,6 +87,7 @@ const GenerateRandomNum = () => {
       setScore(0);
     };
     generateChoicesNum();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
