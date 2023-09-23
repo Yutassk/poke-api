@@ -8,13 +8,11 @@ import { QuizContext } from "./QuizProvider";
 const GenerateRandomNum = () => {
   const router = useRouter();
 
+  const { score, setScore, exam, setExam } = useContext(QuizContext);
+
   const [pokemonData, setPokemonData] = useState<{ name: string; num: number }[]>([]);
   const [answerNum, setAnswerNum] = useState<number>(0);
   const [checkNum, setCheckNum] = useState<null | number>(null);
-  // const [score, setScore] = useState<number>(0);
-  // const [exam, setExam] = useState<number>(0);
-
-  const { score, setScore, exam, setExam } = useContext(QuizContext);
 
   const fetchPokemonName = async (props: number) => {
     try {
@@ -116,8 +114,6 @@ const GenerateRandomNum = () => {
       >
         答えを送信する
       </button>
-      <p>{score}</p>
-      <Link href={"../Result"}>結果を見る</Link>
     </div>
   );
 };
