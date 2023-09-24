@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <QuizProvider>
-        <body className={`${inter.className} max-w-3xl mx-auto`}>{children}</body>
+        <body className={`${inter.className} max-w-3xl mx-auto text-slate-900`}>{children}</body>
       </QuizProvider>
     </html>
   );

@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -12,6 +13,7 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+const auth = getAuth();
 
 // 結果をDBに保存
 export const addResult = async (score: number, exam: number) => {
@@ -24,4 +26,17 @@ export const addResult = async (score: number, exam: number) => {
   } catch (e) {
     console.error("Error adding document:", e);
   }
+};
+
+export const createAccount = (email: string, password: string) => {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("user:", user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("error:", errorCode, errorMessage);
+    });
 };
