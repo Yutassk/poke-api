@@ -3,6 +3,7 @@ import GenerateRandomNum from "./component/GenerateRandomNum";
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import SigninBtn from "./component/SigninBtn";
+import AuthState from "./component/AuthState";
 
 export default function Home() {
   return (
