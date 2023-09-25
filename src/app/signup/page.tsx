@@ -6,25 +6,25 @@ import Link from "next/link";
 import { createAccount } from "../component/Firebase";
 
 const SignUp = () => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [newName, setNewName] = useState<string>("");
+  const [newEmail, setNewEmail] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
 
   const doSetName = (e: string) => {
-    setName(e);
+    setNewName(e);
   };
 
   const doSetEmail = (e: string) => {
-    setEmail(e);
+    setNewEmail(e);
   };
 
   const doSetPassword = (e: string) => {
-    setPassword(e);
+    setNewPassword(e);
   };
 
   const createBtn = () => {
-    if (email && password) {
-      createAccount(name, email, password);
+    if (newEmail && newPassword) {
+      createAccount(newName, newEmail, newPassword);
     }
   };
 
@@ -33,9 +33,9 @@ const SignUp = () => {
       <Header />
       <div className="container">
         <div className="mx-3">
-          {/* Loginと説明部分 */}
+          {/* Signupと説明部分 */}
           <div className="my-4 space-y-2">
-            <h2 className="font-semibold text-3xl">Login</h2>
+            <h2 className="font-semibold text-3xl">Sign Up</h2>
             <p className="text-sm text-slate-700">Create an account to record your Pokémon quiz results and register your favorite Pokémon!</p>
           </div>
           {/* 他サイト使用でのログイン */}
@@ -59,7 +59,10 @@ const SignUp = () => {
             <Link className="text-sm text-blue-800" href={"/"}>
               Reset your password?
             </Link>
-            <button className={`${name && email && password ? "bg-black" : "bg-slate-400 pointer-events-none"} rounded-md text-sm text-white font-medium w-full py-3`} onClick={() => createBtn()}>
+            <button
+              className={`${newName && newEmail && newPassword ? "bg-black" : "bg-slate-400 pointer-events-none"} rounded-md text-sm text-white font-medium w-full py-3`}
+              onClick={() => createBtn()}
+            >
               Continue to Verify Email
             </button>
 

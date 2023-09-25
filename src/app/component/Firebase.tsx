@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { createUserWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
+import { addDoc, collection, doc, getFirestore, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-const auth = getAuth();
+export const auth = getAuth();
 
 // 結果をDBに保存
 export const addResult = async (score: number, exam: number) => {
@@ -28,15 +28,30 @@ export const addResult = async (score: number, exam: number) => {
   }
 };
 
-export const createAccount = (email: string, password: string) => {
+// アカウント作成
+export const createAccount = (name: string, email: string, password: string) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log("user:", user);
+      console.log("user:", user.uid);
+      try {
+        const userRef = setDoc(doc(db, "users", user.uid), {
+          userName: name,
+          email: email,
+          password: password,
+        });
+        console.log(userRef);
+      } catch (e) {
+        console.error("Error adding document:", e);
+      }
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log("error:", errorCode, errorMessage);
     });
+};
+
+export const SignOut = () => {
+  signOut(auth);
 };
