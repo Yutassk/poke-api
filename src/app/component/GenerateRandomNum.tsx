@@ -38,7 +38,7 @@ const GenerateRandomNum = () => {
     if (exam < 5) {
       generateNextQuiz();
     } else {
-      router.push("../");
+      router.push("/result");
     }
   };
 

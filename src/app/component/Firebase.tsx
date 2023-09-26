@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
-import { addDoc, collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import firebase from "firebase/compat/app";
+import { FieldValue, Firestore, addDoc, collection, doc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -36,9 +37,9 @@ export const createAccount = (name: string, email: string, password: string) => 
       console.log("user:", user.uid);
       try {
         const userRef = setDoc(doc(db, "users", user.uid), {
-          userName: name,
-          email: email,
-          password: password,
+          screen_name: user.uid,
+          display_name: name,
+          created_at: serverTimestamp(),
         });
         console.log(userRef);
       } catch (e) {

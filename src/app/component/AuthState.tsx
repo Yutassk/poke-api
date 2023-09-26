@@ -1,20 +1,16 @@
 "use client";
-import React, { useEffect } from "react";
-import { auth, db, app } from "./Firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import React, { useContext } from "react";
+import { AuthContext } from "./AuthProvider";
 
 const AuthState = () => {
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        console.log(user);
-      } else {
-        console.log("ログインしていませｎ");
-      }
-    });
-  }, []);
-  return <div>AuthState</div>;
+  const { uid, name } = useContext(AuthContext);
+
+  return (
+    <div>
+      <div>{`uid : ${uid}`}</div>
+      <div>{`username : ${name}`}</div>
+    </div>
+  );
 };
 
 export default AuthState;
