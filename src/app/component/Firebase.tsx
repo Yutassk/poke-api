@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import { FieldValue, Firestore, addDoc, collection, doc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
+import { useContext } from "react";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -17,13 +18,15 @@ export const db = getFirestore(app);
 export const auth = getAuth();
 
 // 結果をDBに保存
-export const addResult = async (score: number, exam: number) => {
+export const addResult = async (score: number, exam: number, uid: string) => {
+  const usersRef = collection(db, "users");
   try {
-    const docRef = await addDoc(collection(db, "results"), {
+    const docRef = await addDoc(collection(usersRef, "results", uid), {
+      date: serverTimestamp(),
       score: score,
       exam: exam,
     });
-    console.log("Document written with ID:", docRef.id);
+    console.log("Document written with ID:", uid);
   } catch (e) {
     console.error("Error adding document:", e);
   }

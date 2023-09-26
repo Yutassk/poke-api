@@ -1,16 +1,14 @@
 import Link from "next/link";
-import GenerateRandomNum from "./component/GenerateRandomNum";
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
-import SigninBtn from "./component/SigninBtn";
-import AuthState from "./component/AuthState";
+import SignInBtn from "./component/SignInBtn";
 
 export default function Home() {
   return (
     <div>
       <div className="flex justify-between">
         <Header />
-        <SigninBtn />
+        <SignInBtn />
       </div>
       <h2>TOPぺーじ</h2>
       <Link href={"/quiz"}>

@@ -3,15 +3,24 @@
 import React, { useState } from "react";
 import Header from "../layout/Header";
 import Link from "next/link";
-import { createAccount } from "../component/Firebase";
+import { auth } from "../component/Firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-const SignUp = () => {
-  const [name, setName] = useState<string>("");
+const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const doSetName = (e: string) => {
-    setName(e);
+  const doLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
 
   const doSetEmail = (e: string) => {
@@ -20,12 +29,6 @@ const SignUp = () => {
 
   const doSetPassword = (e: string) => {
     setPassword(e);
-  };
-
-  const createBtn = () => {
-    if (email && password) {
-      createAccount(name, email, password);
-    }
   };
 
   return (
@@ -51,7 +54,6 @@ const SignUp = () => {
           {/* アドレス、パスワード入力エリア */}
           <div className="space-y-3">
             <div className="mb-2 flex flex-col gap-2">
-              <input className="border border-slate-200 rounded-lg py-2 px-3 w-full" type="text" placeholder="Your Name" name="name" onChange={(e) => doSetName(e.target.value)} />
               <input className="border border-slate-200 rounded-lg py-2 px-3 w-full" type="email" placeholder="Email Address" name="email" onChange={(e) => doSetEmail(e.target.value)} />
               <input className="border border-slate-200 rounded-lg py-2 px-3 w-full" type="password" placeholder="Password" name="password" onChange={(e) => doSetPassword(e.target.value)} />
             </div>
@@ -59,7 +61,7 @@ const SignUp = () => {
             <Link className="text-sm text-blue-800" href={"/"}>
               Reset your password?
             </Link>
-            <button className={`${name && email && password ? "bg-black" : "bg-slate-400 pointer-events-none"} rounded-md text-sm text-white font-medium w-full py-3`} onClick={() => createBtn()}>
+            <button className={`${email && password ? "bg-black" : "bg-slate-400 pointer-events-none"} rounded-md text-sm text-white font-medium w-full py-3`} onClick={() => doLogin()}>
               Continue to Verify Email
             </button>
 
@@ -67,7 +69,7 @@ const SignUp = () => {
               <p>
                 Already have an account?
                 <span className="font-medium text-blue-700 ml-1">
-                  <Link href={"/"}>Login</Link>
+                  <Link href={"/signup"}>Sign up</Link>
                 </span>
               </p>
             </div>
@@ -78,4 +80,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

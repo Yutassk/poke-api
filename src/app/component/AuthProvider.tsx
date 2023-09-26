@@ -2,7 +2,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import React, { FC, ReactNode, createContext, useEffect, useState } from "react";
 import { auth, db } from "./Firebase";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 type Props = {
   children: ReactNode;

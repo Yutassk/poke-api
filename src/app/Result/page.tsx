@@ -6,9 +6,11 @@ import { QuizContext } from "../component/QuizProvider";
 import { ResultRank } from "../component/ResultRank";
 import { addResult } from "../component/Firebase";
 import Link from "next/link";
+import { AuthContext } from "../component/AuthProvider";
 
 const Result = () => {
   const { score, exam } = useContext(QuizContext);
+  const { uid } = useContext(AuthContext);
 
   return (
     <div>
@@ -21,7 +23,7 @@ const Result = () => {
         <Link href={"/quiz"}>
           <button className="bg-rose-400 text-white rounded-md p-2">もう一度挑戦</button>
         </Link>
-        <button className="bg-sky-500 text-white rounded-md p-2" onClick={() => addResult(score, exam)}>
+        <button className="bg-sky-500 text-white rounded-md p-2" onClick={() => addResult(score, exam, uid)}>
           結果を保存
         </button>
       </div>
