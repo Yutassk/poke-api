@@ -20,12 +20,19 @@ export const auth = getAuth();
 // 結果をDBに保存
 export const addResult = async (score: number, exam: number, uid: string) => {
   const usersRef = collection(db, "users");
+
   try {
-    const docRef = await addDoc(collection(usersRef, "results", uid), {
+    const userDocRef = doc(usersRef, uid);
+    const resultsRef = collection(userDocRef, "results");
+
+    const newResults = {
       date: serverTimestamp(),
       score: score,
       exam: exam,
-    });
+    };
+
+    await addDoc(resultsRef, newResults);
+
     console.log("Document written with ID:", uid);
   } catch (e) {
     console.error("Error adding document:", e);
