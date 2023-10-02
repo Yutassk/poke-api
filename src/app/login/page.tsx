@@ -5,10 +5,13 @@ import Header from "../layout/Header";
 import Link from "next/link";
 import { auth } from "../component/Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isRevealPassword, setIsRevealPassword] = useState<boolean>(false);
 
   const doLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -29,6 +32,10 @@ const Login = () => {
 
   const doSetPassword = (e: string) => {
     setPassword(e);
+  };
+
+  const togglePassword = () => {
+    setIsRevealPassword((prevState) => !prevState);
   };
 
   return (
@@ -55,7 +62,20 @@ const Login = () => {
           <div className="space-y-3">
             <div className="mb-2 flex flex-col gap-2">
               <input className="border border-slate-200 rounded-lg py-2 px-3 w-full" type="email" placeholder="Email Address" name="email" onChange={(e) => doSetEmail(e.target.value)} />
-              <input className="border border-slate-200 rounded-lg py-2 px-3 w-full" type="password" placeholder="Password" name="password" onChange={(e) => doSetPassword(e.target.value)} />
+              <div className="relative">
+                <input
+                  className="w-full py-2 px-3 border border-slate-200 rounded-lg"
+                  type={isRevealPassword ? "text" : "password"}
+                  placeholder="Password"
+                  name="password"
+                  onChange={(e) => doSetPassword(e.target.value)}
+                />
+                {isRevealPassword ? (
+                  <FontAwesomeIcon icon={faEye} className="absolute top-3 right-3" onClick={togglePassword} />
+                ) : (
+                  <FontAwesomeIcon icon={faEyeSlash} className="absolute top-3 right-3 text-slate-400" onClick={togglePassword} />
+                )}
+              </div>
             </div>
 
             <Link className="text-sm text-blue-800" href={"/"}>

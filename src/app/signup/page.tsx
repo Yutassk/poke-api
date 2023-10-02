@@ -60,7 +60,7 @@ const SignUp = () => {
             <div className="mb-2 flex flex-col gap-2">
               <input className="border border-slate-200 rounded-lg py-2 px-3 w-full" type="text" placeholder="Your Name" name="name" onChange={(e) => doSetName(e.target.value)} />
               <input className="border border-slate-200 rounded-lg py-2 px-3 w-full" type="email" placeholder="Email Address" name="email" onChange={(e) => doSetEmail(e.target.value)} />
-              <div className="relative  ">
+              <div className="relative">
                 <input
                   className="w-full py-2 px-3 border border-slate-200 rounded-lg"
                   type={isRevealPassword ? "text" : "password"}
@@ -90,7 +90,7 @@ const SignUp = () => {
               <p>
                 Already have an account?
                 <span className="font-medium text-blue-700 ml-1">
-                  <Link href={"/"}>Login</Link>
+                  <Link href={"/login"}>Login</Link>
                 </span>
               </p>
             </div>
