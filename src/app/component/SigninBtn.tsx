@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "./AuthProvider";
 
 const SignInBtn = () => {
-  const { uid, setUid, setName } = useContext(AuthContext);
+  const { uid, setUid, name, setName } = useContext(AuthContext);
   const router = useRouter();
 
   const SignOut = () => {
@@ -20,9 +20,12 @@ const SignInBtn = () => {
   return (
     <div>
       {uid ? (
-        <button className="bg-slate-500 rounded-md text-white text-xs m-2 p-2" onClick={SignOut}>
-          サインアウトする
-        </button>
+        <div className="flex items-center space-x-2">
+          <div className="text-xs">{`${name}でログイン中`}</div>
+          <button className="bg-slate-500 rounded-md text-white text-xs m-2 p-2" onClick={SignOut}>
+            サインアウトする
+          </button>
+        </div>
       ) : (
         <div className="flex justify-around">
           <Link href={"/signup"}>
