@@ -7,6 +7,7 @@ import { ResultRank } from "../component/ResultRank";
 import { addResult } from "../component/Firebase";
 import Link from "next/link";
 import { AuthContext } from "../component/AuthProvider";
+import { Record } from "../component/Record";
 
 const Result = () => {
   const { score, exam } = useContext(QuizContext);
@@ -15,7 +16,7 @@ const Result = () => {
   return (
     <div>
       <Header />
-      <ResultRank />
+      <ResultRank score={score} exam={exam} />
       <div className="text-center text-3xl my-6 space-y-4">
         <h2 className="">{`${exam}問中 : ${score}問正解！`} </h2>
       </div>
@@ -27,6 +28,7 @@ const Result = () => {
           結果を保存
         </button>
       </div>
+      <Record />
       <Footer />
     </div>
   );

@@ -1,10 +1,12 @@
 import Image from "next/image";
-import React, { useContext, useEffect, useState } from "react";
-import { QuizContext } from "./QuizProvider";
+import React, { useEffect, useState } from "react";
 
-export const ResultRank = () => {
-  const { score, exam } = useContext(QuizContext);
+interface ResultRankProps {
+  score: number;
+  exam: number;
+}
 
+export const ResultRank: React.FC<ResultRankProps> = ({ score, exam }: ResultRankProps) => {
   const [ballName, setBallName] = useState("poke-ball");
   const [jaBallName, setJaBallName] = useState("モンスターボール");
 
@@ -25,7 +27,8 @@ export const ResultRank = () => {
 
   useEffect(() => {
     correctScore();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="flex flex-col items-center space-y-2">

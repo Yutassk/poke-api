@@ -11,11 +11,14 @@ export default function Home() {
         <Header />
         <SignInBtn />
       </div>
-      <div className="group hover:bg-rose-300 transition-all duration-200 ease-linear">
-        <Link className="flex items-center justify-center space-x-2" href={"/quiz"}>
-          <Image className="group-hover:rotate-45 transition duration-1000 ease-in-out " src={"/pokeballicon.png"} width={100} height={100} alt="" />
-          <h3 className="text-3xl">クイズをはじめる</h3>
-        </Link>
+
+      <div className="mx-4">
+        <div className="group hover:bg-rose-300 transition-all duration-200 ease-linear">
+          <Link className="flex items-center justify-center space-x-2" href={"/quiz"}>
+            <Image className="group-hover:rotate-45 transition duration-1000 ease-in-out " src={"/pokeballicon.png"} width={100} height={100} alt="" />
+            <h3 className="text-3xl">クイズをはじめる</h3>
+          </Link>
+        </div>
       </div>
       <Footer />
     </div>
