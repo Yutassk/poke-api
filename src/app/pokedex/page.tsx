@@ -28,6 +28,7 @@ export default function Home() {
 
       <div className="mx-4">
         <h3 className="text-3xl">ポケモン図鑑</h3>
+        <p>好きなポケモンを登録しよう</p>
       </div>
       <div className="grid grid-cols-4 gap-4">
         {pokeIndex.map((pokeNum, index) => (
