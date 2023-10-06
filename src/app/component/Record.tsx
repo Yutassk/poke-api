@@ -62,7 +62,7 @@ export const Record = () => {
               <p>Score: {item.score}</p>
             </div>
           </div>
-          <p className="absolute bottom-2 right-2">{item.date}</p>
+          <p className="absolute top-2 left-2">{item.date}</p>
         </div>
       ))}
       <div></div>

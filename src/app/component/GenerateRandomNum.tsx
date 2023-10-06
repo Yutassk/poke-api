@@ -7,7 +7,7 @@ import { QuizContext } from "./QuizProvider";
 const GenerateRandomNum = () => {
   const router = useRouter();
 
-  const { score, setScore, exam, setExam } = useContext(QuizContext);
+  const { setScore, exam, setExam } = useContext(QuizContext);
 
   const [pokemonData, setPokemonData] = useState<{ name: string; num: number }[]>([]);
   const [answerNum, setAnswerNum] = useState<number>(0);
