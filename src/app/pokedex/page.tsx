@@ -18,8 +18,8 @@ export default function Home() {
     setPokeIndex([...pokeIndex, ...nextIndex]);
   };
 
-  const handlePokeDetail = (num) => {
-    console.log(num);
+  const handlePokeDetail = (pokeIndex: number) => {
+    console.log(pokeIndex);
   };
 
   const items = (
