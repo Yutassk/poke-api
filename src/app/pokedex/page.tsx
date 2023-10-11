@@ -6,11 +6,24 @@ import Image from "next/image";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
+type Pokemon = {
+  name: string;
+  type: string;
+  height: number;
+  weight: number;
+  abilities: string;
+};
+
 export default function Home() {
   const [pokeIndex, setPokeIndex] = useState<number[]>([1, 2, 3, 4]);
   const [modal, setModal] = useState<number>(0);
-  const [pokeName, setPokeName] = useState<string>("");
-  const [pokeType, setPokeType] = useState<string[]>([]);
+  const [pokeData, setPokeData] = useState<Pokemon>({
+    name: "",
+    type: "",
+    height: 0,
+    weight: 0,
+    abilities: "",
+  });
 
   const loadMore = () => {
     const nextIndex = [];
@@ -31,14 +44,35 @@ export default function Home() {
       const fetchPokemonName = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${data.species.name}/`);
       const fetchPokemonNameData = await fetchPokemonName.json();
       const japaneseName = fetchPokemonNameData.names.find((name: { language: { name: string } }) => name.language.name === "ja").name;
-      setPokeName(japaneseName);
+      setPokeData((prevData) => {
+        return { ...prevData, name: japaneseName };
+      });
 
       // ポケモンのタイプ取得
       data.types.map(async (slot: { type: { name: string } }) => {
         const fetchPokemonType = await fetch(`https://pokeapi.co/api/v2/type/${slot.type.name}/`);
         const fetchPokemonTypeData = await fetchPokemonType.json();
         const jaType = fetchPokemonTypeData.names.find((name: { language: { name: string } }) => name.language.name === "ja").name;
-        setPokeType((prevPokeType) => [...prevPokeType, jaType]);
+        setPokeData((prevData) => {
+          const formattedType = `${prevData.type.length > 0 ? " / " : ""}${jaType}`;
+          return { ...prevData, type: `${prevData.type}${formattedType}` };
+        });
+      });
+
+      // ポケモンの身長、体重
+      setPokeData((prevData) => {
+        return { ...prevData, height: data.height / 10, weight: data.weight / 10 };
+      });
+
+      // ポケモンの特徴
+      data.abilities.map(async (n: { ability: { name: any } }) => {
+        const fetchPokemonAbilities = await fetch(`https://pokeapi.co/api/v2/ability/${n.ability.name}/`);
+        const fetchPokemonAbilitiesData = await fetchPokemonAbilities.json();
+        const jaAbilities = fetchPokemonAbilitiesData.names.find((name: { language: { name: string } }) => name.language.name === "ja").name;
+        setPokeData((prevData) => {
+          const formattedAbilities = `${prevData.abilities.length > 0 ? " / " : ""}${jaAbilities}`;
+          return { ...prevData, abilities: `${prevData.abilities}${formattedAbilities}` };
+        });
       });
     } catch (error) {
       console.error("Error fetching Pokemon name:", error);
@@ -53,8 +87,14 @@ export default function Home() {
 
   const closedModal = () => {
     setModal(0);
-    setPokeName("");
-    setPokeType([]);
+
+    setPokeData({
+      name: "",
+      type: "",
+      height: 0,
+      weight: 0,
+      abilities: "",
+    });
   };
 
   const items = (
@@ -93,13 +133,26 @@ export default function Home() {
       {modal > 0 && (
         <div className="group" onClick={closedModal}>
           <div className="block w-full h-full bg-black/70 fixed top-0 left-0">
-            <div className="block w-3/4 mx-auto mt-20 bg-white">
-              <Image width={200} height={200} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${modal}.png`} alt="" />
-              <p>{pokeName}</p>
-              {pokeType.map((type) => (
-                <p key={type}>{type}</p>
-              ))}
-              <button onClick={() => console.log(pokeType)}>koko</button>
+            <div className="block w-3/4 mx-auto mt-20 py-6 bg-white">
+              <div className="flex flex-col items-center">
+                <Image width={200} height={200} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${modal}.png`} alt="" />
+                <div className="text-center my-2 space-y-2">
+                  <p className="font-bold text-xl">{pokeData.name}</p>
+                  <div className="flex">
+                    <p>タイプ：</p>
+                    <p>{pokeData.type}</p>
+                  </div>
+                </div>
+                <div className="leading-relaxed">
+                  <p>{`重さ：${pokeData.weight} kg`}</p>
+                  <p>{`高さ：${pokeData.height} m`}</p>
+                  <div className="flex ">
+                    <p>能力：</p>
+                    <p>{pokeData.abilities}</p>
+                  </div>
+                </div>
+                <button className="bg-rose-400 rounded-md text-white text-center mt-6 px-2 hover:bg-rose-500 hover:translate-y-px">お気に入りに登録</button>
+              </div>
             </div>
           </div>
         </div>
