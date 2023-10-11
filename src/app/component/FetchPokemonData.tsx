@@ -1,44 +1,8 @@
-"use client";
-import Footer from "../layout/Footer";
-import Header from "../layout/Header";
-import SignInBtn from "../component/SignInBtn";
 import Image from "next/image";
-import { useContext, useState } from "react";
-import InfiniteScroll from "react-infinite-scroller";
-import { addFavorite } from "../component/Firebase";
-import { AuthContext } from "../component/AuthProvider";
-import { FetchPokemonData } from "../component/FetchPokemonData";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "./AuthProvider";
 
-interface Pokemon {
-  name: string;
-  type: string;
-  height: number;
-  weight: number;
-  abilities: string;
-}
-
-export default function Home() {
-  const { uid } = useContext(AuthContext);
-
-  const [pokeIndex, setPokeIndex] = useState<number[]>([1, 2, 3, 4]);
-  const [pokeNum, setPokeNum] = useState<number>(0);
-  const [pokeData, setPokeData] = useState<Pokemon>({
-    name: "",
-    type: "",
-    height: 0,
-    weight: 0,
-    abilities: "",
-  });
-
-  const loadMore = () => {
-    const nextIndex = [];
-    const lastNum = pokeIndex[pokeIndex.length - 1];
-    for (let i = 1; i < 5; i++) {
-      nextIndex.push(lastNum + i);
-    }
-    setPokeIndex([...pokeIndex, ...nextIndex]);
-  };
-
+export const FetchPokemonData = () => {
   const fetchPokemonData = async (props: number | string) => {
     try {
       // ポケモンの全データ
@@ -85,57 +49,8 @@ export default function Home() {
     }
   };
 
-  const handlePokeDetail = (index: number) => {
-    setPokeNum(index);
-    fetchPokemonData(index);
-  };
-
-  const closedModal = () => {
-    setPokeNum(0);
-
-    setPokeData({
-      name: "",
-      type: "",
-      height: 0,
-      weight: 0,
-      abilities: "",
-    });
-  };
-
-  // infinite scrollerで必要な関数
-  const items = (
-    <div className="grid grid-cols-4 gap-4">
-      {pokeIndex.map((num, index) => (
-        <Image
-          width={200}
-          height={200}
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${num}.png`}
-          alt=""
-          key={index}
-          onClick={() => handlePokeDetail(num)}
-        />
-      ))}
-    </div>
-  );
-
-  const loader = (
-    <div className="loader" key={0}>
-      Loading ...
-    </div>
-  );
-
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between">
-        <Header />
-        <SignInBtn />
-      </div>
-
-      <div className="mx-4">
-        <h3 className="text-3xl">ポケモン図鑑</h3>
-        <p>好きなポケモンを登録しよう</p>
-      </div>
-
+    <div>
       {pokeNum > 0 && (
         <div className="group" onClick={closedModal}>
           <div className="block w-full h-full bg-black/70 fixed top-0 left-0">
@@ -165,11 +80,6 @@ export default function Home() {
           </div>
         </div>
       )}
-      <InfiniteScroll loadMore={loadMore} hasMore={true} loader={loader}>
-        {items}
-      </InfiniteScroll>
-
-      <Footer />
     </div>
   );
-}
+};

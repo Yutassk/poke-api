@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
-import { addDoc, collection, doc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getFirestore, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -37,6 +37,34 @@ export const addResult = async (score: number, exam: number, uid: string) => {
   }
 };
 
+// お気に入りポケモンの番号登録
+export const addFavorite = async (favorite: number, uid: string) => {
+  try {
+    const usersRef = updateDoc(doc(db, "users", uid), {
+      favorite: favorite,
+    });
+    console.log(usersRef);
+  } catch (e) {
+    console.error("Error adding document:", e);
+  }
+};
+
+// export const addFavorite = async (favorite: number, uid: string) => {
+//   const usersRef = collection(db, "users");
+
+//   try {
+//     const userDocRef = doc(usersRef, uid);
+//     const favoriteRef = collection(userDocRef, "favorite");
+//     const favoritePokemon = {
+//       favorite: favorite,
+//     };
+
+//     await addDoc(favoriteRef, favoritePokemon);
+//   } catch (e) {
+//     console.error("Error adding document:", e);
+//   }
+// };
+
 // アカウント作成
 export const createAccount = (name: string, email: string, password: string) => {
   createUserWithEmailAndPassword(auth, email, password)
@@ -48,6 +76,7 @@ export const createAccount = (name: string, email: string, password: string) => 
           screen_name: user.uid,
           display_name: name,
           created_at: serverTimestamp(),
+          favorite: 0,
         });
         console.log(userRef);
       } catch (e) {

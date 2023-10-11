@@ -5,6 +5,7 @@ import Header from "../layout/Header";
 import SignInBtn from "../component/SignInBtn";
 import { useState } from "react";
 import { Record } from "../component/Record";
+import { FavoritePoke } from "../component/FavoritePoke";
 
 export default function Home() {
   const [logs, setLogs] = useState(false);
@@ -24,6 +25,9 @@ export default function Home() {
         <Link className="flex items-center justify-center space-x-2" href={"/quiz"}>
           <h3 className="text-3xl">マイページ</h3>
         </Link>
+      </div>
+      <div>
+        <FavoritePoke />
       </div>
       {logs ? (
         <div>
