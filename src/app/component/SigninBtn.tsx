@@ -26,7 +26,7 @@ const SignInBtn = () => {
             <button className="bg-rose-500 rounded-md text-white text-xs m-2 p-2">マイページ</button>
           </Link>
           <button className="bg-slate-500 rounded-md text-white text-xs m-2 p-2" onClick={SignOut}>
-            サインアウトする
+            サインアウト
           </button>
         </div>
       ) : (
