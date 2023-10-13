@@ -28,10 +28,10 @@ const GenerateRandomNum = () => {
   // 答え合わせ＆ラジオボタンリセット
   const checkAnswer = () => {
     if (answerNum === checkNum) {
-      alert("正解！");
+      // alert("正解！");
       setScore((prevScore) => (prevScore += 1));
     } else {
-      alert("残念！");
+      // alert("残念！");
     }
     setCheckNum(null);
 
