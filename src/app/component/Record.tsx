@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthProvider";
-import { collection, doc, getDocs, query } from "firebase/firestore";
+import { collection, doc, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "./Firebase";
 import { ResultRank } from "./ResultRank";
 
@@ -24,7 +24,7 @@ export const Record = () => {
         const resultRef = collection(userDocRef, "results");
 
         try {
-          const q = query(resultRef);
+          const q = query(resultRef, orderBy("date", "desc"));
           const querySnapshot = await getDocs(q);
 
           const updatedRecord: any = [];
