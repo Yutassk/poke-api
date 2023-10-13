@@ -2,10 +2,10 @@
 import Link from "next/link";
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
-import SignInBtn from "../component/SignInBtn";
 import { useState } from "react";
 import { Record } from "../component/Record";
 import { FavoritePoke } from "../component/FavoritePoke";
+import SignInBtn from "../component/SignInBtn";
 
 export default function Home() {
   const [logs, setLogs] = useState(false);

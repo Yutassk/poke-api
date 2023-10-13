@@ -1,12 +1,12 @@
 "use client";
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
-import SignInBtn from "../component/SignInBtn";
 import Image from "next/image";
 import { useContext, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { addFavorite } from "../component/Firebase";
 import { AuthContext } from "../component/AuthProvider";
+import SignInBtn from "../component/SignInBtn";
 
 interface Pokemon {
   name: string;

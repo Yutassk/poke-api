@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
-import SignInBtn from "./component/SignInBtn";
 import Image from "next/image";
+import SignInBtn from "./component/SignInBtn";
 
 export default function Home() {
   return (
