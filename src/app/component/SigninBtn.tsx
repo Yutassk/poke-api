@@ -21,7 +21,7 @@ const SignInBtn = () => {
     <div>
       {uid ? (
         <div className="flex items-center space-x-2">
-          <div className="text-xs">{`${name}でログイン中`}</div>
+          <div className="text-xs">{`${name}さん、ようこそ`}</div>
           <Link href={"/mypage"}>
             <button className="bg-rose-500 rounded-md text-white text-xs m-2 p-2">マイページ</button>
           </Link>
