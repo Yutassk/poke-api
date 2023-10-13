@@ -54,7 +54,7 @@ export const Record = () => {
   return (
     <div>
       {records.map((item) => (
-        <div className="relative border border-l-slate-200 p-6" key={item.id}>
+        <div className="relative border border-l-slate-200 p-6 my-3" key={item.id}>
           <div className="flex items-center justify-around flex-row-reverse mb-4">
             <ResultRank score={item.score} exam={item.exam} />
             <div className="text-xl space-y-2">

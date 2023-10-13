@@ -37,10 +37,11 @@ export const FavoritePoke = () => {
     }
   }, [uid]);
   return (
-    <div>
-      <div>
+    <div className="">
+      <div className="border border-slate-200 shadow-md py-4">
         {favoritePoke.num && (
-          <div>
+          <div className="flex flex-col items-center relative">
+            <h3 className="absolute top-0 left-2">パートナーポケモン</h3>
             <Image width={200} height={200} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${favoritePoke.num}.png`} alt="" />
             <p>{favoritePoke.name}</p>
           </div>
