@@ -7,7 +7,6 @@ import { useContext, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { addFavorite } from "../component/Firebase";
 import { AuthContext } from "../component/AuthProvider";
-import { FetchPokemonData } from "../component/FetchPokemonData";
 
 interface Pokemon {
   name: string;
