@@ -36,7 +36,6 @@ const GenerateRandomNum = () => {
     setCheckNum(null);
 
     if (exam < 20) {
-      setPokemonData([]);
       generateNextQuiz();
     } else {
       router.push("/result");
@@ -47,11 +46,11 @@ const GenerateRandomNum = () => {
     setCheckNum(index);
   };
 
+  const newAnswerNum = Math.floor(Math.random() * 4);
+
   // 回答後のメッセージを閉じると次の問題出題
   const generateNextQuiz = async () => {
     const newName: React.SetStateAction<{ name: string; num: number }[]> = [];
-    const newAnswerNum = Math.floor(Math.random() * 4);
-
     setAnswerNum(newAnswerNum);
 
     while (newName.length < 4) {
@@ -68,15 +67,8 @@ const GenerateRandomNum = () => {
 
   // 初期画面ロード時に問題出力
   useEffect(() => {
-    setPokemonData([]);
-    setAnswerNum(0);
-    setExam(1);
-    setScore(0);
-
     const generateChoicesNum = async () => {
       const newName: React.SetStateAction<{ name: string; num: number }[]> = [];
-      const newAnswerNum = Math.floor(Math.random() * 4);
-
       setAnswerNum(newAnswerNum);
 
       // 選択肢が４つになるまで、重複を避けてランダムな数字出力
@@ -89,6 +81,8 @@ const GenerateRandomNum = () => {
         }
       }
       setPokemonData(newName);
+      setExam(1);
+      setScore(0);
     };
     generateChoicesNum();
     // eslint-disable-next-line react-hooks/exhaustive-deps
