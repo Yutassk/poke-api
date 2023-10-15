@@ -3,7 +3,6 @@ import Footer from "./layout/Footer";
 import Header from "./layout/Header";
 import Image from "next/image";
 import SignInBtn from "./component/SignInBtn";
-import FetchPokemon from "./component/FetchPokemon";
 
 export default function Home() {
   return (
@@ -29,7 +28,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* <FetchPokemon /> */}
       <Footer />
     </div>
   );
