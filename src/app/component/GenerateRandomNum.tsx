@@ -46,12 +46,12 @@ const GenerateRandomNum = () => {
     setCheckNum(index);
   };
 
+  const newAnswerNum = Math.floor(Math.random() * 4);
+
   // 回答後のメッセージを閉じると次の問題出題
   const generateNextQuiz = async () => {
-    const newAnswerNum = Math.floor(Math.random() * 4);
-    setAnswerNum(newAnswerNum);
-
     const newName: React.SetStateAction<{ name: string; num: number }[]> = [];
+    setAnswerNum(newAnswerNum);
 
     while (newName.length < 4) {
       const randomNumber: number = Math.floor(1011 - Math.random() * 1010);
@@ -68,10 +68,8 @@ const GenerateRandomNum = () => {
   // 初期画面ロード時に問題出力
   useEffect(() => {
     const generateChoicesNum = async () => {
-      const newAnswerNum = Math.floor(Math.random() * 4);
-      setAnswerNum(newAnswerNum);
-
       const newName: React.SetStateAction<{ name: string; num: number }[]> = [];
+      setAnswerNum(newAnswerNum);
 
       // 選択肢が４つになるまで、重複を避けてランダムな数字出力
       while (newName.length < 4) {
