@@ -49,22 +49,6 @@ export const addFavorite = async (favorite: number, uid: string) => {
   }
 };
 
-// export const addFavorite = async (favorite: number, uid: string) => {
-//   const usersRef = collection(db, "users");
-
-//   try {
-//     const userDocRef = doc(usersRef, uid);
-//     const favoriteRef = collection(userDocRef, "favorite");
-//     const favoritePokemon = {
-//       favorite: favorite,
-//     };
-
-//     await addDoc(favoriteRef, favoritePokemon);
-//   } catch (e) {
-//     console.error("Error adding document:", e);
-//   }
-// };
-
 // アカウント作成
 export const createAccount = (name: string, email: string, password: string) => {
   createUserWithEmailAndPassword(auth, email, password)

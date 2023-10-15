@@ -95,11 +95,11 @@ const GenerateRandomNum = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center border border-slate-200 mx-4 mb-6 shadow-md">
+    <div className="flex flex-col items-center border border-slate-200 mx-4 mb-2 shadow-md">
       <h2>{`${exam}問目`}</h2>
-      <h3 className="my-4 text-lg">このポケモンの名前はなんでしょう。</h3>
+      <h3 className="my-3 text-lg">このポケモンの名前はなんでしょう。</h3>
       {pokemonData.length > 0 && (
-        <Image width={300} height={300} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData[answerNum].num}.png`} alt="" />
+        <Image width={250} height={250} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData[answerNum].num}.png`} alt="" />
       )}
 
       <div className="my-4">

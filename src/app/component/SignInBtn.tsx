@@ -18,13 +18,13 @@ const SignInBtn = () => {
   };
 
   return (
-    <div>
+    <div className="">
       {uid ? (
-        <div className="flex items-center space-x-2">
-          <div className="text-xs">{`${name}さん、ようこそ`}</div>
-          <Link href={"/mypage"}>
+        <div className="">
+          {/* <div className="text-xs">{`${name}さん、ようこそ`}</div> */}
+          {/* <Link href={"/mypage"}>
             <button className="bg-rose-500 rounded-md text-white text-xs m-2 p-2">マイページ</button>
-          </Link>
+          </Link> */}
           <button className="bg-slate-500 rounded-md text-white text-xs m-2 p-2" onClick={SignOut}>
             サインアウト
           </button>

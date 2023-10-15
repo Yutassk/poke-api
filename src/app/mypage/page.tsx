@@ -22,24 +22,28 @@ export default function Home() {
       </div>
 
       <div className="mx-6">
-        <div className="mx-4">
-          <Link className="flex items-center justify-center space-x-2" href={"/quiz"}>
-            <h3 className="text-3xl">マイページ</h3>
-          </Link>
+        <div className="mb-2">
+          <h3 className="text-2xl">マイページ</h3>
         </div>
         <div>
           <FavoritePoke />
         </div>
-        {logs ? (
-          <div>
-            <button onClick={handleSetResult}>記録を閉じる</button>
-            <Record />
-          </div>
-        ) : (
-          <div>
-            <button onClick={handleSetResult}>過去の記録を表示する</button>
-          </div>
-        )}
+        <div className="my-4">
+          {logs ? (
+            <div className="">
+              <button className="bg-sky-600 text-white text-sm p-2 rounded-md" onClick={handleSetResult}>
+                記録を閉じる
+              </button>
+              <Record />
+            </div>
+          ) : (
+            <div>
+              <button className="bg-sky-600 text-white text-sm p-2 rounded-md" onClick={handleSetResult}>
+                過去の記録を表示する
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       <Footer />
     </div>
