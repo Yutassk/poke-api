@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
 import { useState } from "react";

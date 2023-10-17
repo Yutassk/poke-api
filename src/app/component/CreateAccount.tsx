@@ -3,9 +3,9 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, firebaseConfig } from "./Firebase";
 import { doc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-const CreateAccount = (name: string, email: string, password: string, router) => {
+const CreateAccount = (name: string, email: string, password: string, router: string[] | AppRouterInstance) => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
