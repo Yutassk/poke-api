@@ -103,12 +103,12 @@ export default function Home() {
 
   // infinite scrollerで必要な関数
   const items = (
-    <div className="grid grid-cols-4 gap-4 cursor-pointe">
+    <div className="grid grid-cols-3  cursor-pointe">
       {pokeIndex.map((num, index) => (
         <div className="cursor-pointer hover:bg-rose-300 rounded-full p-4 transition-all duration-300 ease-in-out" key={index}>
           <Image
-            width={200}
-            height={200}
+            width={300}
+            height={300}
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${num}.png`}
             alt=""
             onClick={() => handlePokeDetail(num)}
