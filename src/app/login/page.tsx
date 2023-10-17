@@ -7,8 +7,10 @@ import { auth } from "../component/Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isRevealPassword, setIsRevealPassword] = useState<boolean>(false);
@@ -17,7 +19,8 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        router.push("/");
+        console.log(`${user.uid}:でログインしました`);
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -3,15 +3,19 @@
 import React, { useState } from "react";
 import Header from "../layout/Header";
 import Link from "next/link";
-import { createAccount } from "../component/Firebase";
+// import { createAccount } from "../component/Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import CreateAccount from "../component/CreateAccount";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const [newName, setNewName] = useState<string>("");
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [isRevealPassword, setIsRevealPassword] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const doSetName = (e: string) => {
     setNewName(e);
@@ -27,7 +31,8 @@ const SignUp = () => {
 
   const createBtn = () => {
     if (newEmail && newPassword) {
-      createAccount(newName, newEmail, newPassword);
+      // createAccount(newName, newEmail, newPassword);
+      CreateAccount(newName, newEmail, newPassword, router);
     }
   };
 

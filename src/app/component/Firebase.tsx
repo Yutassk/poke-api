@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
 import { addDoc, collection, doc, getFirestore, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
@@ -50,29 +51,28 @@ export const addFavorite = async (favorite: number, uid: string) => {
 };
 
 // アカウント作成
-export const createAccount = (name: string, email: string, password: string) => {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log("user:", user.uid);
-      try {
-        const userRef = setDoc(doc(db, "users", user.uid), {
-          screen_name: user.uid,
-          display_name: name,
-          created_at: serverTimestamp(),
-          favorite: 0,
-        });
-        console.log(userRef);
-      } catch (e) {
-        console.error("Error adding document:", e);
-      }
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("error:", errorCode, errorMessage);
-    });
-};
+// export const createAccount = (name: string, email: string, password: string) => {
+//   createUserWithEmailAndPassword(auth, email, password)
+//     .then((userCredential) => {
+//       const user = userCredential.user;
+//       try {
+//         const userRef = setDoc(doc(db, "users", user.uid), {
+//           screen_name: user.uid,
+//           display_name: name,
+//           created_at: serverTimestamp(),
+//           favorite: 0,
+//         });
+//         console.log(`${userRef}:でユーザー登録しました`);
+//       } catch (e) {
+//         console.error("Error adding document:", e);
+//       }
+//     })
+//     .catch((error) => {
+//       const errorCode = error.code;
+//       const errorMessage = error.message;
+//       console.log("error:", errorCode, errorMessage);
+//     });
+// };
 
 export const SignOut = () => {
   signOut(auth);
